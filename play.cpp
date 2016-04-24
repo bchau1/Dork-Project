@@ -3,11 +3,11 @@
 #include <string>
 #include <iostream>
 using namespace std;
-int rollfunc(string in_str);
-int main(){
-cout << rollfunc("roll");
+//int rollfunc(string in_str);
+//int main(){
+//cout << rollfunc("roll");
 
-return 0; }
+//return 0; }
 int rollfunc(string in_str){	
 int num;
 	
