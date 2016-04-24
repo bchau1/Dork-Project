@@ -1,71 +1,124 @@
-#include"dork.h"
+#include "game.h"
 
-class dorkInfo{
-	private:
-		string name= "Unknown";
-		string level = "Terrestrial";
-		int energy= 0;
-		int rolls = 0;
-		int steps = 0;
-	public:
-		void setName(string set_name);
-		void setLevel(string set_level);
-		void setEnergy(int set_energy);
-		void setRolls(int set_rolls);
-		void setSteps(int set_steps);
-		void printAll();
-		string getName();
-		string getLevel();
-		int getEnergy();
-		int getRolls();
-		int getSteps();
-};
-void dorkInfo::setName(string set_name)
+//Gamedata Constructors
+GameData::GameData(string n):name(n)
 {
-	name = set_name;
+	energy = 15;
+	level = levels[0];
+	steps = 0;
+	roll = 0;
 }
-void dorkInfo::setLevel(string set_level)
+
+GameData::GameData()
 {
-	level = set_level;
+	name = "Unknown";
+	level = levels[0];
+	energy = 15;
+	steps = 0;
+	roll = 0;
 }
-void dorkInfo::setEnergy(int set_energy)
+
+GameData::GameData(string n, string l, int e, int s)
+:name(n), level(l), energy(e), steps(s)
 {
-	energy = set_energy;
+
 }
-void dorkInfo::setRolls(int set_rolls)
-{
-	rolls = set_rolls;
-}
-void dorkInfo::setSteps(int set_steps)
-{
-	steps = set_steps;
-}
-string dorkInfo::getName()
+
+//Member functions Accessors and Mutators
+//Accessors
+string GameData::getName()
 {
 	return name;
+
 }
-string dorkInfo::getLevel()
+	
+string GameData::getLevel()
 {
 	return level;
-}	
-int dorkInfo::getEnergy()
+
+}
+
+int GameData::getEnergy()
 {
 	return energy;
+
 }
-int dorkInfo::getRolls()
-{
-	return rolls;
-}
-int dorkInfo::getSteps()
+
+int GameData::getSteps()
 {
 	return steps;
+
 }
-void dorkInfo::printAll()
+
+int GameData::getRoll()
 {
-	//addstr(name);
-	cout<<"Name: " <<name<<"    "<< "Level: "<<level <<"    "<< "Rolls left: " <<rolls <<"    "<< "Engery Left: "<<energy <<"    "<< "Steps: "<<steps << endl;
-	/*cout<<level;
-	cout<<rolls;
-	cout<<energy;
-	cout<<steps;*/
+	return roll;
+
+}
+//Mutators
+void GameData::setName(string n)
+{
+	name=n;
+
+
+}
+
+void GameData::setLevel(int s){
+	level = levels[s];
+}
+
+void GameData::setEnergy(int e){
+	energy = e;
+}
+
+void GameData::setSteps(int s){
+	steps = s;
+}
+
+void GameData::setRoll(int r){
+	roll = r;
+}
+
+//Member functions, that do actual things		
+void GameData::printData(){
+	printw("Username: ");
+	string user = getName();
+	printw("%s", user.c_str());
+	printw("\t");
+	printw("Level: ");
+	string lev = getLevel();
+	printw("%s", lev.c_str());
+	printw("\t");
+	printw("Energy Level: ");
+	printw("%d", getEnergy());
+	printw("\t");
+	printw("Steps: ");
+	printw("%d", getSteps());
+}//end printData
+
+void GameData::playGame()
+{
+	string input;
+	bool running = true;
+	while(running)
+	{
+		scanw("%s", input.c_str());
+		if(input.length() > 7)
+		{
+		
+		printw("\n");
+		refresh();
+		printw("%s", input.c_str());
+		printw("\n");
+		refresh();
+			running = false;
+			printw("Ended?");
+		}
+	
+	
+	}//end while
+		
+
+
+
 }

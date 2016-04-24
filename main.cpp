@@ -15,16 +15,23 @@
  * /
  * *******************************************************************/
 #include"dork.h"
-#include"game.cpp"
+#include"game.h"
+
+
 
 int main(int argc, char *argv[])
 {
 	display_init();
-    //intro_display();
+	//intro_display();
 	clearDisplay(1);
 	refresh();
-	dorkInfo dork;
-	dork.printAll();
+	GameData dork;
+	dork.printData();
+	refresh();
+	dork.playGame();
+	
+	
+
     getch();
     display_close();
     return 0;
