@@ -10,6 +10,11 @@ void loadOrNew(dorkInfo dork)
 	int energy = 0;
 	int steps = 0;
 	char load_new[4];
+	
+	char forename[10];
+	char surname[10];
+	int age[3];
+	char nationality[10]; 
 	printw("Would you like to start a new game or load a saved game?\n");
 	printw("Type load or new: \t");
 	scanw("%s",load_new);
@@ -51,7 +56,19 @@ void loadOrNew(dorkInfo dork)
 	}
 	if(strcmp(load_new,"new")==0)
 	{
-		printw("New game");
+		printw("Starting New game\n");
+		printw("Forename: ");
+		scanw("%s", forename);
+		//printw("\n");
+		printw("Surname: ");
+		scanw("%s", surname);
+		//printw("\n");
+		printw("Age: ");
+		scanw("%d", age);
+		//printw("\n");
+		printw("Nationality: ");
+		scanw("%s", nationality);
+		printw("\n");
 		//run game
 	}
 	if(error == 1)
