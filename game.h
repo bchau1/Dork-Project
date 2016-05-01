@@ -8,7 +8,7 @@ class GameData{
 	private:
 		string name;
 		string levels[3] = {"Terrestrial", "Arboreal", "Aerial"};
-		string level;
+		int level;
 		int energy;
 		int roll;
 		int steps;
@@ -17,7 +17,7 @@ class GameData{
 	public:
 		GameData();
 		GameData(string name);
-	    GameData(string name, string level, int energy, int steps);
+		GameData(string n, int l, int e, int s);
 		
 		string getName();
 		string getLevel();
@@ -31,10 +31,30 @@ class GameData{
 		void setSteps(int s);
 		void setRoll(int r);
 		
-		void printData();
+		void printData(); // prints the banner
 		void playGame();
 		
+		void loadEvents();
 
+		int loadGame();
+		int saveGame();
+		
+
+};
+struct point
+{
+	int x;
+	int y;
+};
+
+struct eventInfo
+{
+	bool needsResponse;
+	string Description;
+	int energy;
+	point newLocation;
+	bool isQuestion;
+	
 };
 
 #endif

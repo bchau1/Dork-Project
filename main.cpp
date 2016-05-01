@@ -17,21 +17,14 @@
 #include"dork.h"
 #include"game.h"
 
-
-
 int main(int argc, char *argv[])
 {
-	display_init();
-	//intro_display();
-	clearDisplay(1);
-	refresh();
-	GameData dork;
-	dork.printData();
-	refresh();
-	dork.playGame();
-	
-	
-
+    display_init();
+    clearDisplay(1);
+    //intro_display();
+    GameData dork;
+    dork.setEnergy(30);
+    dork.playGame();
     getch();
     display_close();
     return 0;
