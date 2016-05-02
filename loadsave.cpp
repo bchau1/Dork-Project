@@ -1,7 +1,7 @@
 #include"dork.h"
 #include"game.cpp"
 
-void loadOrNew(dorkInfo dork)
+int loadOrNew(dorkInfo dork)
 {
 	int error = 0;
 	string arr[9];
@@ -61,6 +61,7 @@ void loadOrNew(dorkInfo dork)
 		dat.close();
 		printw("load\n");
 		dork.printAll();
+		return 1;
 		dat.close();
 		//run game
 	
@@ -72,18 +73,11 @@ void loadOrNew(dorkInfo dork)
 		printw("Enter the following.\n");
 		printw("Name: ");
 		scanw("%s", enterName);
-		//dork.setName(enterName);
 		printw("Age: ");
 		scanw("%s", temp);
 		enterAge = atoi(temp);
-		//dork.setAge(enterAge);
 		printw("Nationality: ");
 		scanw("%s", enterNationality);
-		//dork.setNationality(enterNationality);
-		//dork.setRolls(0);
-		//dork.setEnergy(15);
-		//dork.setSteps(0);
-		//dork.setLevel("Terrestrial");
 		
 		if (!news.is_open())
    		{
@@ -101,6 +95,7 @@ void loadOrNew(dorkInfo dork)
 		news<< 0 <<endl;
 		news.close();
 		printw("\n");
+		return 0;
 		//run game
 	}
 	if(error == 1)

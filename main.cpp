@@ -164,6 +164,34 @@ int main(int argc, char *argv[])
 	dork.setCurrentLocationY(currentY);
 	dat.close();
 	
+	ifstream newGame("new_Data.dat");
+	if (newLoad == 0)
+	{
+		count = 0;
+		while (newGame.good())
+   		{
+       		 	for(string eachLine; getline(newGame, eachLine);++count) //get each line
+       			{
+				arr[count]=eachLine;
+		 	}
+		}
+		dork.setName(arr[0]);
+		dork.setLevel(arr[1]);
+		roll = stoi(arr[2]);
+ 		dork.setRolls(roll);
+		energy = stoi(arr[3]);
+		dork.setEnergy(energy);
+		steps = stoi(arr[4]);
+ 		dork.setSteps(steps);
+		age = stoi(arr[5]);
+		dork.setAge(age);
+		dork.setNationality(arr[6]);
+		currentX = stoi(arr[7]);
+		dork.setCurrentLocationX(currentX);
+		currentY = stoi(arr[8]);
+		dork.setCurrentLocationY(currentY);
+		newGame.close();
+	}
 	save(dork);
 	clearDisplay(1);
 	dork.printAll();
