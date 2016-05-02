@@ -25,6 +25,14 @@ int energyNum[200];
 int moveX[200];
 int moveY[200];
 int questionNum[200];
+string arr[9];
+int count=0;
+int roll = 0;
+int energy = 0;
+int steps = 0;
+int age = 0;
+int currentX = 0;
+int currentY = 0;
 
 void Database()
 {
@@ -124,17 +132,39 @@ int main(int argc, char *argv[])
         //intro_display();
 	clearDisplay(1);
 	dorkInfo dork;
-	//loadOrNew(dork);
+	Database();
+	dork.printAll();
+	loadOrNew(dork);
+	ifstream dat("new_Data.dat");
+	while (dat.good())
+   	{
+       		 for(string eachLine; getline(dat, eachLine);++count) //get each line
+       		 {
+			arr[count]=eachLine;
+		 }
+	}
+	dork.setName(arr[0]);
+	dork.setLevel(arr[1]);
+	roll = stoi(arr[2]);
+ 	dork.setRolls(roll);
+	energy = stoi(arr[3]);
+	dork.setEnergy(energy);
+	steps = stoi(arr[4]);
+ 	dork.setSteps(steps);
+	age = stoi(arr[5]);
+	dork.setAge(age);
+	dork.setNationality(arr[6]);
+	currentX = stoi(arr[7]);
+	dork.setCurrentLocationX(currentX);
+	currentY = stoi(arr[8]);
+	dork.setCurrentLocationY(currentY);
+	dat.close();
+	save(dork);
 	clearDisplay(1);
 	dork.printAll();
-	Database();
-	for(int i = 1; i<10; i++)
-	{
-	printw("%d",moveX[i]);
-	printw("\t%d",moveY[i]);
-	printw("\n");
-	//refresh();
-	}
+	//while(dork.getEnergy() != 0)
+	//{
+		//temp = Roll();
 	//printw("%d",Roll());
 	//checkEvent(dork.getCurrentLocationX, dork.getCurrentLocationY);
 	//if(checkpoint(dork.getSteps) == 1)
