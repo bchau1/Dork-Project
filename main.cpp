@@ -17,6 +17,7 @@
 #include"dork.h"
 #include"loadsave.cpp"
 #include"play.cpp"
+#include"Checkpoint.cpp"
 int eventLocationX[200];
 int eventLocationY[200];
 string eventDescription[200];
@@ -33,6 +34,9 @@ int steps = 0;
 int age = 0;
 int currentX = 0;
 int currentY = 0;
+int arrayNum = 0;
+int temp = 0;
+int newLoad = 0;
 
 void Database()
 {
@@ -134,8 +138,8 @@ int main(int argc, char *argv[])
 	dorkInfo dork;
 	Database();
 	dork.printAll();
-	loadOrNew(dork);
-	ifstream dat("new_Data.dat");
+	newLoad = loadOrNew(dork);
+	ifstream dat("saved_Data.dat");
 	while (dat.good())
    	{
        		 for(string eachLine; getline(dat, eachLine);++count) //get each line
@@ -159,18 +163,37 @@ int main(int argc, char *argv[])
 	currentY = stoi(arr[8]);
 	dork.setCurrentLocationY(currentY);
 	dat.close();
+	
 	save(dork);
 	clearDisplay(1);
 	dork.printAll();
-	//while(dork.getEnergy() != 0)
-	//{
-		//temp = Roll();
-	//printw("%d",Roll());
-	//checkEvent(dork.getCurrentLocationX, dork.getCurrentLocationY);
-	//if(checkpoint(dork.getSteps) == 1)
-	//{
-	//	save(dork);
-	//}
+	for(int i = 1; i<200; i++)
+	{
+		if((dork.getCurrentLocationX() == eventLocationX[i]) && (dork.getCurrentLocationY() ==
+		eventLocationY[i]))
+	  	{
+			arrayNum = i;
+			break;
+	  	}
+	}	
+	printw("%s\n",eventDescription[arrayNum].c_str());
+	while(dork.getEnergy() != 0)
+	{
+		temp = Roll();
+		dork.setRolls(temp);
+		printw("You rolled a : ");
+		printw("%d\n",temp);
+		dork.setEnergy(dork.getEnergy() - 1);
+		dork.setSteps(dork.getSteps()+temp);
+		if(dork.getSteps() > 25)
+		{
+			save(dork);
+		}
+		getch();
+		clearDisplay(1);
+		dork.printAll();
+	}
+	printw("\t\t=[ You ran out of Energy.");
     getch();
     display_close();
     return 0;
