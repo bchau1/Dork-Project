@@ -37,6 +37,8 @@ int currentY = 0;
 int arrayNum = 0;
 int temp = 0;
 int newLoad = 0;
+int stepReset = 0;
+char levelIncrease = 'y';
 
 void Database()
 {
@@ -98,8 +100,8 @@ void Database()
 	 for(int j = 1; j<200; j++) //Location , Deliminator
 	 {
 		 int pos = eventLocation[j].find_first_of(',');
-		 eventLocationY[j] = stoi(eventLocation[j].substr(pos+1));
-		 eventLocationX[j] = stoi(eventLocation[j].substr(0,pos));
+		 eventLocationX[j] = stoi(eventLocation[j].substr(pos+1));
+		 eventLocationY[j] = stoi(eventLocation[j].substr(0,pos));
 		 responseNum[j] = stoi(response[j]);
 		 energyNum[j] = stoi(energy[j]);
 		 questionNum[j] = stoi(Question[j]);
@@ -108,8 +110,8 @@ void Database()
 	 for(int j = 1; j<200; j++) //Location , Deliminator
 	 {
 		 int pos = move[j].find_first_of(',');
-		 moveY[j] = stoi(move[j].substr(pos+1));
-		 moveX[j] = stoi(move[j].substr(0,pos));
+		 moveX[j] = stoi(move[j].substr(pos+1));
+		 moveY[j] = stoi(move[j].substr(0,pos));
 	 }
 	 
 	 /*
@@ -194,17 +196,8 @@ int main(int argc, char *argv[])
 	}
 	save(dork);
 	clearDisplay(1);
-	dork.printAll();
-	for(int i = 1; i<200; i++)
-	{
-		if((dork.getCurrentLocationX() == eventLocationX[i]) && (dork.getCurrentLocationY() ==
-		eventLocationY[i]))
-	  	{
-			arrayNum = i;
-			break;
-	  	}
-	}	
-	printw("%s\n",eventDescription[arrayNum].c_str());
+	dork.printAll();	
+	printw("%s\n",eventDescription[1].c_str());
 	while(dork.getEnergy() != 0)
 	{
 		temp = Roll();
@@ -213,9 +206,23 @@ int main(int argc, char *argv[])
 		printw("%d\n",temp);
 		dork.setEnergy(dork.getEnergy() - 1);
 		dork.setSteps(dork.getSteps()+temp);
-		if(dork.getSteps() > 25)
+		dork.setCurrentLocationX(dork.getCurrentLocationX()+temp);
+		for(int i = 1; i<200; i++)
+		{
+			if((dork.getCurrentLocationX() == eventLocationX[i]) && (dork.getCurrentLocationY() ==
+			eventLocationY[i]))
+	  		{
+				getch();
+				clearDisplay(1);
+				dork.printAll();
+				printw("%s\n",eventDescription[i].c_str());
+	  		}
+		}
+		stepReset++;
+		if(stepReset > 6)
 		{
 			save(dork);
+			stepReset = 0;
 		}
 		getch();
 		clearDisplay(1);
