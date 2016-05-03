@@ -39,6 +39,9 @@ int temp = 0;
 int newLoad = 0;
 int stepReset = 0;
 char levelIncrease = 'y';
+int storedEnergy = 0;
+char eatOrStore[5];
+string answer;
 
 void Database()
 {
@@ -216,7 +219,47 @@ int main(int argc, char *argv[])
 				clearDisplay(1);
 				dork.printAll();
 				printw("%s\n",eventDescription[i].c_str());
-	  		}
+				if(responseNum[i] == 0) //No response
+				{
+					dork.setEnergy(dork.getEnergy()+energyNum[i]);
+					if(dork.getEnergy()>30)
+					{
+						dork.setEnergy(30);
+					}
+					dork.setCurrentLocationX(dork.getCurrentLocationX()+moveX[i]);
+					dork.setCurrentLocationY(dork.getCurrentLocationY()+moveY[i]);
+				}
+				if(responseNum[i] == 1) //Response
+				{
+					if(energyNum[i] != 0) //Energy Eat or Store
+					{
+						printw("eat or store?");
+						scanw("%s\n",eatOrStore);
+						while((strcmp(eatOrStore,"eat")!=0) && (strcmp(eatOrStore,"store") != 0))
+						{
+							printw("eat or store?");
+							scanw("%s\n",eatOrStore);
+						}
+						if(strcmp(eatOrStore,"eat")==0)
+						{
+							dork.setEnergy(dork.getEnergy()+energyNum[i]);
+							if(dork.getEnergy()>30)
+							{
+								dork.setEnergy(30);
+							}
+						}
+						if(strcmp(eatOrStore,"store")==0)
+						{
+							storedEnergy = energyNum[i];
+						}
+					}
+					if(questionNum[i] == 1) //Question
+					{
+						scanw("%s\n",answer.c_str());
+					}
+					
+	  			}
+			}
 		}
 		stepReset++;
 		if(stepReset > 6)
